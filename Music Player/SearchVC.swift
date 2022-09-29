@@ -9,13 +9,14 @@ import UIKit
 import Alamofire
 
 
-struct TrackModel {
-    var trackName: String
-    var artistName: String
-}
+//struct TrackModel {
+//    var trackName: String
+//    var artistName: String
+//}
 
-class SearchViewController: UITableViewController {
+class SearchVC: UITableViewController {
     
+    var networkService = NetworkService()
     private var timer: Timer?
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -53,38 +54,16 @@ class SearchViewController: UITableViewController {
     }
 }
 
-extension SearchViewController: UISearchBarDelegate {
+extension SearchVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
-            let url = "https://itunes.apple.com/search"
-            let parametrs = ["term":"\(searchText)",
-                             "limit":"10"]
-            AF.request(url, method: .get, parameters: parametrs, encoding: URLEncoding.default, headers: nil).responseData { (dataResponce) in
-                if let error = dataResponce.error {
-                    print("ok:\(error.localizedDescription)")
-                    return
-                }
-                
-                guard let data = dataResponce.data else { return }
-                
-                let decoder = JSONDecoder()
-                do {
-                    let objects = try decoder.decode(SearchResponce.self, from: data)
-                    print("objects", objects)
-                    self.arrayTrack = objects.results
-                    self.tableView.reloadData()
-                } catch let jsonError {
-                    print("Failed", jsonError)
-                }
-                
-//                let someString = String(data: data, encoding: .utf8)
-//                print(someString ?? "")
-
-            }
+        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { [self] (_) in
             
-           
+            networkService.fetchTracks(searchText: searchText) { [weak self] (searchResults) in
+                self?.arrayTrack = searchResults?.results ?? []
+                self?.tableView.reloadData()
+            }
         })
         
     }
