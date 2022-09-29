@@ -13,6 +13,8 @@
 		522625AB28E49484000CF133 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 522625A928E49484000CF133 /* Main.storyboard */; };
 		522625AD28E49486000CF133 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 522625AC28E49486000CF133 /* Assets.xcassets */; };
 		522625B028E49486000CF133 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 522625AE28E49486000CF133 /* LaunchScreen.storyboard */; };
+		522625B828E4968C000CF133 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522625B728E4968C000CF133 /* MainTabBarController.swift */; };
+		522625BA28E49786000CF133 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522625B928E49786000CF133 /* SearchViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		522625AC28E49486000CF133 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		522625AF28E49486000CF133 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		522625B128E49486000CF133 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		522625B728E4968C000CF133 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		522625B928E49786000CF133 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 				522625A328E49484000CF133 /* AppDelegate.swift */,
 				522625A528E49484000CF133 /* SceneDelegate.swift */,
 				522625A728E49484000CF133 /* ViewController.swift */,
+				522625B728E4968C000CF133 /* MainTabBarController.swift */,
+				522625B928E49786000CF133 /* SearchViewController.swift */,
 				522625A928E49484000CF133 /* Main.storyboard */,
 				522625AC28E49486000CF133 /* Assets.xcassets */,
 				522625AE28E49486000CF133 /* LaunchScreen.storyboard */,
@@ -138,8 +144,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				522625BA28E49786000CF133 /* SearchViewController.swift in Sources */,
 				522625A828E49484000CF133 /* ViewController.swift in Sources */,
 				522625A428E49484000CF133 /* AppDelegate.swift in Sources */,
+				522625B828E4968C000CF133 /* MainTabBarController.swift in Sources */,
 				522625A628E49484000CF133 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,7 +314,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -334,7 +342,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
