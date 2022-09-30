@@ -18,21 +18,20 @@ enum Search {
     enum Something {
         struct Request {
             enum RequestType {
-                case some
                 case getTracks(searchTerm: String)
             }
         }
         
         struct Response {
             enum ResponceType {
-                case some
                 case presentTracks(searchResponce: SearchResponce?)
+                case presnetFooterView
             }
         }
         struct ViewModel {
             enum ViewModelData {
-                case some
                 case displayTacks(searchViewModel: SearchViewModel)
+                case displayFooterView
             }
         }
     }

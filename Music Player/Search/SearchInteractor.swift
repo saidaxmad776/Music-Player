@@ -35,11 +35,10 @@ class SearchInteractor: SearchBusinessLogic, SearchDataStore {
         }
       
       switch request {
-      case .some:
-          print("no")
-          presenter?.presentSomething(response: Search.Something.Response.ResponceType.some)
+
       case .getTracks(let searchTerm):
           print("iteractor")
+          presenter?.presentSomething(response: Search.Something.Response.ResponceType.presnetFooterView)
           networkService.fetchTracks(searchText: searchTerm) { [weak self] (searchResponce) in
               self?.presenter?.presentSomething(response: Search.Something.Response.ResponceType.presentTracks(searchResponce: searchResponce))
           }

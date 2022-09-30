@@ -27,6 +27,7 @@
 		522625BA28E49786000CF133 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522625B928E49786000CF133 /* SearchVC.swift */; };
 		52C9D83028E6BFAA00072270 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9D82E28E6BFAA00072270 /* TrackCell.swift */; };
 		52C9D83128E6BFAA00072270 /* TrackCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52C9D82F28E6BFAA00072270 /* TrackCell.xib */; };
+		52C9D83528E703DA00072270 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9D83428E703DA00072270 /* FooterView.swift */; };
 		EEE56AD4A23008B1494409F0 /* Pods_Music_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC1D1B228EC28CFCF834945 /* Pods_Music_Player.framework */; };
 /* End PBXBuildFile section */
 
@@ -55,6 +56,7 @@
 		522625B928E49786000CF133 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		52C9D82E28E6BFAA00072270 /* TrackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		52C9D82F28E6BFAA00072270 /* TrackCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackCell.xib; sourceTree = "<group>"; };
+		52C9D83428E703DA00072270 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		738710F1F6582F508FF3DB1D /* Pods-Music Player.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music Player.release.xcconfig"; path = "Target Support Files/Pods-Music Player/Pods-Music Player.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +75,7 @@
 		521E3F9B28E5A3FF00320DF7 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				52C9D83328E7037A00072270 /* FooterView */,
 				52C9D82928E6BC0700072270 /* Cell */,
 				521E3FB928E5C0E200320DF7 /* SearchViewController.storyboard */,
 				521E3FAF28E5A52800320DF7 /* SearchViewController.swift */,
@@ -154,6 +157,14 @@
 				521E3F9628E5689C00320DF7 /* SearchResponce.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		52C9D83328E7037A00072270 /* FooterView */ = {
+			isa = PBXGroup;
+			children = (
+				52C9D83428E703DA00072270 /* FooterView.swift */,
+			);
+			path = FooterView;
 			sourceTree = "<group>";
 		};
 		9284F195CC6C0C8444833BA5 /* Pods */ = {
@@ -295,6 +306,7 @@
 				522625BA28E49786000CF133 /* SearchVC.swift in Sources */,
 				522625A828E49484000CF133 /* ViewController.swift in Sources */,
 				521E3FB628E5A52800320DF7 /* SearchInteractor.swift in Sources */,
+				52C9D83528E703DA00072270 /* FooterView.swift in Sources */,
 				52C9D83028E6BFAA00072270 /* TrackCell.swift in Sources */,
 				522625A428E49484000CF133 /* AppDelegate.swift in Sources */,
 				522625B828E4968C000CF133 /* MainTabBarController.swift in Sources */,

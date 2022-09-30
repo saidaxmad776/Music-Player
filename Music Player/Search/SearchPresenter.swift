@@ -28,8 +28,6 @@ class SearchPresenter: SearchPresentationLogic
 //    viewController?.displaySomething(viewModel: viewModel)
         
         switch response {
-        case .some:
-            print("go")
         case .presentTracks(let searchResults):
            let cells = searchResults?.results.map({ (track) in
                 cellViewModel(from: track)
@@ -37,6 +35,9 @@ class SearchPresenter: SearchPresentationLogic
             let searchViewModel = SearchViewModel.init(cells: cells)
             print("presenter")
             viewController?.displaySomething(viewModel: Search.Something.ViewModel.ViewModelData.displayTacks(searchViewModel: searchViewModel))
+            
+        case .presnetFooterView:
+            viewController?.displaySomething(viewModel: Search.Something.ViewModel.ViewModelData.displayFooterView)
         }
   }
     
