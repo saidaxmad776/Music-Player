@@ -33,6 +33,7 @@ class FooterView: UIView {
     }
     
     private func setupUI() {
+                
         addSubview(myLabel)
         addSubview(loader)
         

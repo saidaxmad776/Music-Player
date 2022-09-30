@@ -124,6 +124,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         84
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let window = UIApplication.shared.keyWindow
+        let trackDetailViews = Bundle.main.loadNibNamed("TrackDetailView", owner: self, options: nil)?.first as! TrackDetailView
+        window?.addSubview(trackDetailViews)
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
         label.text = "Please enter search term above"
