@@ -62,6 +62,13 @@ class TrackDetailView: UIView {
         }
     }
     
+    private func observerPlayerCurrentTime() {
+        let interval = CMTimeMake(value: 1, timescale: 2)
+        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
+            self?.currentTimeLabel.text = time.toDisplayString()
+        }
+    }
+    
     deinit {
         print("TrackDetail memory being reclaimed...")
     }
