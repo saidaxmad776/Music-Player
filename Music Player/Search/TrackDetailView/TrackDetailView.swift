@@ -32,6 +32,7 @@ class TrackDetailView: UIView {
     }()
     
     weak var delegate: TrackMovingDelegate?
+    weak var tabBarDelegate: MainTabBarControllerDelegate?
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -114,7 +115,8 @@ class TrackDetailView: UIView {
     //        MARK: - @IBAction
     
     @IBAction func dragDownButtonTapped(_ sender: Any) {
-        self.removeFromSuperview()
+        
+        self.tabBarDelegate?.minimizeTrackDetailController()
     }
     
     @IBAction func handleCurrentTimerSlider(_ sender: Any) {
