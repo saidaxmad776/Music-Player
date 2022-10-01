@@ -61,9 +61,9 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         super.viewDidLoad()
         setup()
         
-//        doSomething()
         setupSearchBar()
         setupTableView()
+        searchBar(searchController.searchBar, textDidChange: "billie")
     }
     
     // MARK: Do something

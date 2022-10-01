@@ -111,7 +111,7 @@
                                     <rect key="frame" x="118" y="81.5" width="118" height="104"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain">
-                                        <imageReference key="image" image="icons8-пауза-в-квадрате-90" renderingMode="hierarchical-single">
+                                        <imageReference key="image" image="pause" renderingMode="hierarchical-single">
                                             <hierarchicalColors>
                                                 <color systemColor="labelColor"/>
                                                 <color systemColor="secondaryLabelColor"/>
@@ -196,7 +196,7 @@
         <image name="icons8-left-67" width="67" height="67"/>
         <image name="icons8-right-67" width="67" height="67"/>
         <image name="icons8-двойная-стрелка-вниз-24()" width="24" height="24"/>
-        <image name="icons8-пауза-в-квадрате-90" width="90" height="90"/>
+        <image name="pause" width="90" height="90"/>
         <image name="speaker.slash.fill" catalog="system" width="124" height="128"/>
         <image name="speaker.wave.2.fill" catalog="system" width="128" height="90"/>
         <systemColor name="labelColor">
