@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 protocol MainTabBarControllerDelegate: AnyObject {
     func minimizeTrackDetailController()
@@ -32,9 +33,14 @@ class MainTabBarController: UITabBarController {
         
         searchVC.tabBarDelegate = self
         
+        let library = Library()
+        let hostVC = UIHostingController(rootView: library)
+        hostVC.tabBarItem.image = UIImage(systemName: "music.note.list")
+        hostVC.tabBarItem.title = "Library"
+        
         viewControllers = [
-            generateViewController(rootViewController: searchVC, image: "magnifyingglass", title: "Search"),
-            generateViewController(rootViewController: ViewController(), image: "music.note.list", title: "Library")
+            hostVC,
+            generateViewController(rootViewController: searchVC, image: "magnifyingglass", title: "Search")
         ]
         
     }
@@ -74,8 +80,8 @@ extension MainTabBarController: MainTabBarControllerDelegate {
     
     func maximizeTrackDetailController(viewModel: SearchViewModel.Cell?) {
         
-        maximizedTopAchorConstraints.isActive = true
         minimizedTopAchorConstraints.isActive = false
+        maximizedTopAchorConstraints.isActive = true
         maximizedTopAchorConstraints.constant = 0
         bottomAchorContsraints.constant = 0
         

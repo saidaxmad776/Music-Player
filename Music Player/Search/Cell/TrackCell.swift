@@ -25,6 +25,8 @@ class TrackCell: UITableViewCell {
     @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var collectionNameLabel: UILabel!
     
+    @IBOutlet weak var addTrackOutlet: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -41,10 +43,13 @@ class TrackCell: UITableViewCell {
         trackImageView.image = nil
     }
     
+    var cell: SearchViewModel.Cell?
+    
     //        MARK: - Set Models on Cells
     
-    func set(viewModel: TrackCellViewModel) {
+    func set(viewModel: SearchViewModel.Cell) {
         
+        self.cell = viewModel
         trackNameLabel.text = viewModel.trackName
         artistNameLabel.text = viewModel.artistName
         collectionNameLabel.text = viewModel.collectionName
@@ -52,4 +57,20 @@ class TrackCell: UITableViewCell {
         guard let url = URL(string: viewModel.iconUrlString ?? "") else { return }
         trackImageView.sd_setImage(with: url, completed: nil)
     }
+    
+    @IBAction func addTrackAction(_ sender: Any) {
+        let defolts = UserDefaults.standard
+        guard let cell = cell else { return }
+        addTrackOutlet.isHidden = true
+        
+        var listOfTracks = defolts.savedTracks()
+
+        listOfTracks.append(cell)
+        
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: listOfTracks, requiringSecureCoding: false) {
+            print("go")
+            defolts.set(savedData, forKey: UserDefaults.favouriteTrackKey)
+        }
+    }
+
 }

@@ -75,10 +75,12 @@ class TrackDetailView: UIView {
         trackImageView.sd_setImage(with: url, completed: nil)
     }
     
+    //        MARK: - Gesture Func setup
     private func setupGesture() {
         
         miniTrackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximized)))
         miniTrackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismissalPan)))
     }
     
     @objc private func handleTapMaximized() {
@@ -86,8 +88,74 @@ class TrackDetailView: UIView {
         self.tabBarDelegate?.maximizeTrackDetailController(viewModel: nil)
     }
     
-    @objc private func handlePan() {
+    @objc private func handlePan(gesture: UIPanGestureRecognizer) {
         
+        switch gesture.state {
+        case .began:
+            print("default")
+        case .changed:
+            handlePanChanged(gesture: gesture)
+        case .ended:
+            hanldePanEnded(gesture: gesture)
+        case .possible:
+            print("no")
+        case .cancelled:
+            print("no")
+        case .failed:
+            print("no")
+        @unknown default:
+            print("default")
+        }
+    }
+    
+    @objc private func handleDismissalPan(gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .changed:
+            let translation = gesture.translation(in: self.superview)
+            maximaizedStackView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        case .ended:
+            let translation = gesture.translation(in: self.superview)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                self.maximaizedStackView.transform = .identity
+                if translation.y > 50 {
+                    self.tabBarDelegate?.minimizeTrackDetailController()
+                }
+            }, completion: nil)
+        case .possible:
+            print("no")
+        case .began:
+            print("no")
+        case .cancelled:
+            print("no")
+        case .failed:
+            print("no")
+        @unknown default:
+            print("default")
+        }
+    }
+    
+    private func handlePanChanged(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: self.superview)
+        self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        
+        let newAlpha = 1 + translation.y / 200
+        self.miniTrackView.alpha = newAlpha < 0 ? 0 : newAlpha
+        self.maximaizedStackView.alpha = -translation.y / 200
+    }
+    
+    private func hanldePanEnded(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: self.superview)
+        let velocity = gesture.velocity(in: self.superview)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+            if translation.y < -200 || velocity.y < -500 {
+                self.transform = .identity
+                self.tabBarDelegate?.maximizeTrackDetailController(viewModel: nil)
+            } else {
+                self.miniTrackView.alpha = 1
+                self.maximaizedStackView.alpha = 0
+            }
+        }, completion: nil)
     }
     
     private func playTrack(previewUrl: String?) {

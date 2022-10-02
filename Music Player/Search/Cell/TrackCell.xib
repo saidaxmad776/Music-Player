@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,16 +42,32 @@
                         <color key="textColor" white="0.55000000000000004" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iia-BG-OuD">
+                        <rect key="frame" x="356" y="27" width="30" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain">
+                            <imageReference key="image" image="plus.square" catalog="system" symbolScale="large"/>
+                            <color key="baseForegroundColor" red="0.97170424279167145" green="0.25056308202371713" blue="0.15921826773716902" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="addTrackAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Ynh-dW-YOR"/>
+                        </connections>
+                    </button>
                 </subviews>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addTrackOutlet" destination="iia-BG-OuD" id="dia-2v-gO6"/>
                 <outlet property="artistNameLabel" destination="fDs-fp-tZs" id="2KO-c6-Mlw"/>
                 <outlet property="collectionNameLabel" destination="no0-rS-qXj" id="4KW-6A-h30"/>
                 <outlet property="trackImageView" destination="Tyn-pu-slX" id="Wju-Rp-BmT"/>
                 <outlet property="trackNameLabel" destination="exq-3B-ZbY" id="TJb-dT-7gN"/>
             </connections>
-            <point key="canvasLocation" x="-522" y="84"/>
+            <point key="canvasLocation" x="-645" y="83"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="plus.square" catalog="system" width="128" height="114"/>
+    </resources>
 </document>
