@@ -41,6 +41,8 @@ class TrackCell: UITableViewCell {
         trackImageView.image = nil
     }
     
+    //        MARK: - Set Models on Cells
+    
     func set(viewModel: TrackCellViewModel) {
         
         trackNameLabel.text = viewModel.trackName

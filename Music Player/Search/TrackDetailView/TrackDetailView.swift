@@ -15,7 +15,18 @@ protocol TrackMovingDelegate: AnyObject {
 }
 
 class TrackDetailView: UIView {
-
+    
+    
+    @IBOutlet weak var miniTrackView: UIView!
+    @IBOutlet weak var miniLineView: UIView!
+    @IBOutlet weak var miniTrackImageView: UIImageView!
+    @IBOutlet weak var miniTrackNameLabel: UILabel!
+    @IBOutlet weak var miniTrackPauseButton: UIButton!
+    @IBOutlet weak var miniTrackGoForwordButton: UIButton!
+    
+    
+    @IBOutlet weak var maximaizedStackView: UIStackView!
+    
     @IBOutlet weak var trackImageView: UIImageView!
     @IBOutlet weak var currentTimerSlider: UISlider!
     @IBOutlet weak var currentTimeLabel: UILabel!
@@ -37,6 +48,7 @@ class TrackDetailView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         trackImageView.layer.cornerRadius = 20
+        miniTrackImageView.layer.cornerRadius = 10
     }
     
     override  func awakeFromNib() {
@@ -46,9 +58,12 @@ class TrackDetailView: UIView {
         trackImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
         
         trackImageView.clipsToBounds = true
+        
+        setupGesture()
     }
     
     func set(viewModel: SearchViewModel.Cell) {
+        miniTrackNameLabel.text = viewModel.trackName
         trackTitleLabel.text = viewModel.trackName
         authorTitleLabel.text = viewModel.artistName
         playTrack(previewUrl: viewModel.previewUrl)
@@ -56,7 +71,23 @@ class TrackDetailView: UIView {
         observerPlayerCurrentTime()
         let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600")
         guard let url = URL(string: string600 ?? "") else { return }
+        miniTrackImageView.sd_setImage(with: url, completed: nil)
         trackImageView.sd_setImage(with: url, completed: nil)
+    }
+    
+    private func setupGesture() {
+        
+        miniTrackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximized)))
+        miniTrackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+    }
+    
+    @objc private func handleTapMaximized() {
+        print("tap maximized")
+        self.tabBarDelegate?.maximizeTrackDetailController(viewModel: nil)
+    }
+    
+    @objc private func handlePan() {
+        
     }
     
     private func playTrack(previewUrl: String?) {
@@ -152,10 +183,12 @@ class TrackDetailView: UIView {
         if player.timeControlStatus == .paused {
             player.play()
             playPauseButton.setImage(UIImage(named: "pause"), for: .normal)
+            miniTrackPauseButton.setImage(UIImage(named: "icons8-pause-squared-50"), for: .normal)
             enlargeTrackView()
         } else {
             player.pause()
             playPauseButton.setImage(UIImage(named: "play"), for: .normal)
+            miniTrackPauseButton.setImage(UIImage(named: "icons8-play-button-circled-50"), for: .normal)
             reduceTrackView()
         }
     }

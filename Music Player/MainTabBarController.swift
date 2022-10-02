@@ -9,10 +9,17 @@ import UIKit
 
 protocol MainTabBarControllerDelegate: AnyObject {
     func minimizeTrackDetailController()
+    func maximizeTrackDetailController(viewModel: SearchViewModel.Cell?)
 }
 
 class MainTabBarController: UITabBarController {
     
+    let searchVC: SearchViewController = SearchViewController.loadFromStoryboard()
+    let trackDetailView: TrackDetailView = TrackDetailView.loadFromNib()
+    
+    private var minimizedTopAchorConstraints: NSLayoutConstraint!
+    private var maximizedTopAchorConstraints: NSLayoutConstraint!
+    private var bottomAchorContsraints: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +28,9 @@ class MainTabBarController: UITabBarController {
         tabBar.backgroundColor = .systemGray6
         
         tabBar.tintColor = #colorLiteral(red: 1, green: 0.1719063818, blue: 0.4505617023, alpha: 1)
-        
         setupTrackDetailView()
-        let searchVC: SearchViewController = SearchViewController.loadFromStoryboard()
+        
+        searchVC.tabBarDelegate = self
         
         viewControllers = [
             generateViewController(rootViewController: searchVC, image: "magnifyingglass", title: "Search"),
@@ -41,22 +48,18 @@ class MainTabBarController: UITabBarController {
         return navigationVC
     }
     
-    private var minimizedTopAchorConstraints: NSLayoutConstraint!
-    private var maximizedTopAchorConstraints: NSLayoutConstraint!
-    private var bottomAchorContsraints: NSLayoutConstraint!
-    
+    //        MARK: - Track Detail View Constraints Animate
     private func setupTrackDetailView() {
         
-        let trackDetailView: TrackDetailView = TrackDetailView.loadFromNib()
-        trackDetailView.backgroundColor = .red
         trackDetailView.tabBarDelegate = self
+        trackDetailView.delegate = searchVC
         view.insertSubview(trackDetailView, belowSubview: tabBar)
         
         trackDetailView.translatesAutoresizingMaskIntoConstraints = false
         
         minimizedTopAchorConstraints = trackDetailView.topAnchor.constraint(equalTo: tabBar.topAnchor,
                                                                             constant: -64)
-        maximizedTopAchorConstraints = trackDetailView.topAnchor.constraint(equalTo: view.topAnchor)
+        maximizedTopAchorConstraints = trackDetailView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height)
         bottomAchorContsraints = trackDetailView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: view.frame.height)
         bottomAchorContsraints.isActive = true
         
@@ -66,11 +69,36 @@ class MainTabBarController: UITabBarController {
     }
 }
 
+//        MARK: - MainTabBarControllerDelegate
 extension MainTabBarController: MainTabBarControllerDelegate {
+    
+    func maximizeTrackDetailController(viewModel: SearchViewModel.Cell?) {
+        
+        maximizedTopAchorConstraints.isActive = true
+        minimizedTopAchorConstraints.isActive = false
+        maximizedTopAchorConstraints.constant = 0
+        bottomAchorContsraints.constant = 0
+        
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 1,
+                       options: .curveEaseOut,
+                       animations: {
+            self.view.layoutIfNeeded()
+            self.tabBar.alpha = 0
+            self.trackDetailView.miniTrackView.alpha = 0
+            self.trackDetailView.maximaizedStackView.alpha = 1
+        },
+                       completion: nil)
+        guard let viewModel = viewModel else { return }
+        self.trackDetailView.set(viewModel: viewModel)
+    }
     
     func minimizeTrackDetailController() {
         
         maximizedTopAchorConstraints.isActive = false
+        bottomAchorContsraints.constant = view.frame.height
         minimizedTopAchorConstraints.isActive = true
         
         UIView.animate(withDuration: 0.5,
@@ -80,6 +108,9 @@ extension MainTabBarController: MainTabBarControllerDelegate {
                        options: .curveEaseOut,
                        animations: {
             self.view.layoutIfNeeded()
+            self.tabBar.alpha = 1
+            self.trackDetailView.miniTrackView.alpha = 1
+            self.trackDetailView.maximaizedStackView.alpha = 0
         },
                        completion: nil)
     }

@@ -1,8 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "icons8-пауза-в-квадрате-90.png",
       "idiom" : "universal"
+    },
+    {
+      "filename" : "icons8-пауза-в-квадрате-90.png",
+      "idiom" : "iphone"
     }
   ],
   "info" : {
