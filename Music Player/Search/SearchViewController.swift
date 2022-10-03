@@ -67,14 +67,20 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         searchBar(searchController.searchBar, textDidChange: "billie")
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-//    func doSomething() {
-//        let request = Search.Something.Request()
-//        interactor?.doSomething(request: request)
-//    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let keyWindow = UIApplication.shared.connectedScenes
+            .filter({$0.activationState == .foregroundActive})
+            .map({$0 as? UIWindowScene})
+            .compactMap({$0})
+            .first?.windows
+            .filter({$0.isKeyWindow}).first
+        
+        let tabBarVC = keyWindow?.rootViewController as? MainTabBarController
+        tabBarVC?.trackDetailView.delegate = self
+    }
     
     private func setupSearchBar() {
         navigationItem.searchController = searchController
