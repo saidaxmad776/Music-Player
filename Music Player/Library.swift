@@ -6,15 +6,24 @@
 //
 
 import SwiftUI
+import URLImage
 
 struct Library: View {
+    
+    @State var tracks = UserDefaults.standard.savedTracks()
+    @State private var showingAlert = false
+    @State private var track: SearchViewModel.Cell!
+    
+    var tabBarDelegate: MainTabBarControllerDelegate?
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 25) {
                 GeometryReader { geometry in
                     HStack(spacing: 10) {
                         Button(action: {
-                            print("777")
+                            self.track = self.tracks[0]
+                            self.tabBarDelegate?.maximizeTrackDetailController(viewModel: self.track)
                         },
                                label: {
                             Image(systemName: "play.fill")
@@ -23,7 +32,7 @@ struct Library: View {
                                 .background(Color.init(UIColor.systemGray6.cgColor)).cornerRadius(10)
                         })
                         Button(action: {
-                            print("444")
+                            self.tracks = UserDefaults.standard.savedTracks()
                         },
                                label: {
                             Image(systemName: "arrow.2.circlepath")
@@ -34,24 +43,61 @@ struct Library: View {
                     }
                 }.padding().frame(height: 50)
                 Divider().padding(.leading).padding(.trailing)
-                List {
-                    LibraryCell()
+                List{
+                    ForEach(tracks) { track in
+                        LibraryCell(cell: track).gesture(LongPressGesture().onEnded({ _ in
+                            print("Pressed!")
+                            self.track = track
+                            self.showingAlert = true
+                        }).simultaneously(with: TapGesture().onEnded({ _ in
+                            self.track = track
+                            self.tabBarDelegate?.maximizeTrackDetailController(viewModel: self.track)
+                        })))
+                    }.onDelete(perform: delete)
                 }
-            }
+            }.actionSheet(isPresented: $showingAlert, content: {
+                ActionSheet(title: Text("Are you sure you want to delete"),
+                            buttons: [.destructive(Text("Delete"), action: {
+                    print("ok")
+                    self.delete(tarck: self.track)
+                }), .cancel()
+                                     ])
+            })
             
-            .navigationBarTitle("Library")
+                .navigationBarTitle("Library")
         }
         
+    }
+    
+    func delete(at offsets: IndexSet) {
+        tracks.remove(atOffsets: offsets)
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: tracks, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: UserDefaults.favouriteTrackKey)
+        }
+    }
+    
+    func delete(tarck: SearchViewModel.Cell) {
+        let index = tracks.firstIndex(of: track)
+        guard let myIndex = index else { return }
+        tracks.remove(at: myIndex)
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: tracks, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: UserDefaults.favouriteTrackKey)
+        }
     }
 }
 
 struct LibraryCell: View {
+    
+    var cell: SearchViewModel.Cell
+    
     var body: some View {
         HStack {
-            Image("search").resizable().frame(width: 60, height: 60).cornerRadius(10)
-            VStack {
-                Text("Track Name")
-                Text("Artist Name")
+            Image("musics").resizable().frame(width: 60, height: 60).cornerRadius(10)
+            VStack(alignment: .leading, spacing: 5) {
+                Text("\(cell.trackName)")
+                Text("\(cell.artistName)")
             }
         }
     }
@@ -61,4 +107,16 @@ struct Library_Previews: PreviewProvider {
     static var previews: some View {
         Library()
     }
+}
+
+extension Library: TrackMovingDelegate {
+    
+    func moveBackForPreviosTrack() -> SearchViewModel.Cell? {
+        return nil
+    }
+    
+    func moveForwardForPreviosTrack() -> SearchViewModel.Cell? {
+        return nil
+    }
+    
 }

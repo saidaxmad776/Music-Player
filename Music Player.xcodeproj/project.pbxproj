@@ -34,6 +34,7 @@
 		52C9D83E28E88CE600072270 /* Nib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9D83D28E88CE600072270 /* Nib.swift */; };
 		52C9D84028E9A7AB00072270 /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9D83F28E9A7AB00072270 /* Library.swift */; };
 		52C9D84228E9E04100072270 /* UserDefoults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C9D84128E9E04100072270 /* UserDefoults.swift */; };
+		52C9D84528E9E8A700072270 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 52C9D84428E9E8A700072270 /* URLImage */; };
 		EEE56AD4A23008B1494409F0 /* Pods_Music_Player.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC1D1B228EC28CFCF834945 /* Pods_Music_Player.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52C9D84528E9E8A700072270 /* URLImage in Frameworks */,
 				EEE56AD4A23008B1494409F0 /* Pods_Music_Player.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,6 +230,9 @@
 			dependencies = (
 			);
 			name = "Music Player";
+			packageProductDependencies = (
+				52C9D84428E9E8A700072270 /* URLImage */,
+			);
 			productName = "Music Player";
 			productReference = 522625A028E49484000CF133 /* Music Player.app */;
 			productType = "com.apple.product-type.application";
@@ -256,6 +261,9 @@
 				Base,
 			);
 			mainGroup = 5226259728E49484000CF133;
+			packageReferences = (
+				52C9D84328E9E8A700072270 /* XCRemoteSwiftPackageReference "url-image" */,
+			);
 			productRefGroup = 522625A128E49484000CF133 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -572,6 +580,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		52C9D84328E9E8A700072270 /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		52C9D84428E9E8A700072270 /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52C9D84328E9E8A700072270 /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5226259828E49484000CF133 /* Project object */;
 }

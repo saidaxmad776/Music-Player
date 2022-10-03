@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 enum Search {
     // MARK: Use cases
@@ -47,8 +48,9 @@ class SearchViewModel: NSObject, NSCoding {
         cells = coder.decodeObject(forKey: "cells") as? [SearchViewModel.Cell] ?? []
     }
     
-    @objc(_TtCC12Music_Player15SearchViewModel4Cell)class Cell: NSObject, NSCoding {
+    @objc(_TtCC12Music_Player15SearchViewModel4Cell)class Cell: NSObject, NSCoding, Identifiable {
         
+        var id = UUID()
         var iconUrlString: String?
         var trackName: String
         var collectionName: String
